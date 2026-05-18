@@ -1,0 +1,1290 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>VELDRA — Technical Luxury Textiles</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Libre+Baskerville:ital,wght@0,400;0,700;1,400&family=Barlow:wght@300;400;500&display=swap" rel="stylesheet">
+<style>
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0;}
+:root{
+  --black:#080808;
+  --near-black:#0E0E0E;
+  --panel:#141414;
+  --border:#242424;
+  --silver:#A8A8A8;
+  --light:#E8E4DC;
+  --white:#F5F2EC;
+  --gold:#C9A84C;
+  --gold-dim:#7A6030;
+  --red:#C0392B;
+  --text-dim:#666;
+}
+html{scroll-behavior:smooth;}
+body{
+  font-family:'Barlow',sans-serif;
+  background:var(--black);
+  color:var(--light);
+  font-weight:300;
+  line-height:1.7;
+  overflow-x:hidden;
+  cursor:default;
+}
+::selection{background:var(--gold);color:var(--black);}
+
+/* CUSTOM CURSOR */
+.cursor{
+  position:fixed;width:8px;height:8px;
+  background:var(--gold);border-radius:50%;
+  pointer-events:none;z-index:9999;
+  transform:translate(-50%,-50%);
+  transition:width 0.2s,height 0.2s,background 0.2s;
+}
+.cursor-ring{
+  position:fixed;width:32px;height:32px;
+  border:1px solid rgba(201,168,76,0.4);border-radius:50%;
+  pointer-events:none;z-index:9998;
+  transform:translate(-50%,-50%);
+  transition:transform 0.12s ease,width 0.3s,height 0.3s;
+}
+
+/* NAV */
+nav{
+  position:fixed;top:0;left:0;right:0;z-index:100;
+  display:flex;align-items:center;justify-content:space-between;
+  padding:1.8rem 5vw;
+  border-bottom:1px solid transparent;
+  transition:border-color 0.4s,background 0.4s;
+}
+nav.scrolled{
+  background:rgba(8,8,8,0.95);
+  backdrop-filter:blur(20px);
+  border-bottom-color:var(--border);
+}
+.nav-logo{
+  font-family:'Bebas Neue',sans-serif;
+  font-size:2rem;letter-spacing:0.18em;
+  color:var(--white);text-decoration:none;
+}
+.nav-logo span{color:var(--gold);}
+.nav-center{
+  position:absolute;left:50%;transform:translateX(-50%);
+  display:flex;gap:3rem;list-style:none;
+}
+.nav-center a{
+  font-size:0.7rem;letter-spacing:0.2em;text-transform:uppercase;
+  color:var(--silver);text-decoration:none;
+  transition:color 0.3s;
+}
+.nav-center a:hover{color:var(--gold);}
+.nav-right{display:flex;align-items:center;gap:2rem;}
+.nav-tag{
+  font-size:0.65rem;letter-spacing:0.15em;text-transform:uppercase;
+  color:var(--gold-dim);
+}
+.nav-btn{
+  font-size:0.65rem;letter-spacing:0.2em;text-transform:uppercase;
+  padding:0.6rem 1.5rem;
+  border:1px solid var(--gold-dim);
+  color:var(--gold);text-decoration:none;
+  transition:all 0.3s;
+}
+.nav-btn:hover{background:var(--gold);color:var(--black);}
+
+/* HERO */
+#hero{
+  min-height:100vh;
+  display:flex;flex-direction:column;
+  justify-content:flex-end;
+  padding:0 5vw 6rem;
+  position:relative;overflow:hidden;
+}
+.hero-bg{
+  position:absolute;inset:0;
+  background:var(--near-black);
+}
+.hero-grid-lines{
+  position:absolute;inset:0;
+  background-image:
+    repeating-linear-gradient(0deg,transparent,transparent 79px,rgba(201,168,76,0.04) 79px,rgba(201,168,76,0.04) 80px),
+    repeating-linear-gradient(90deg,transparent,transparent 79px,rgba(201,168,76,0.04) 79px,rgba(201,168,76,0.04) 80px);
+}
+.hero-diagonal{
+  position:absolute;top:0;right:0;
+  width:55%;height:100%;
+  background:var(--panel);
+  clip-path:polygon(18% 0,100% 0,100% 100%,0% 100%);
+}
+.hero-diagonal-pattern{
+  position:absolute;inset:0;
+  background-image:
+    repeating-linear-gradient(45deg,transparent,transparent 9px,rgba(201,168,76,0.06) 9px,rgba(201,168,76,0.06) 10px);
+}
+.hero-year{
+  position:absolute;top:8rem;right:5vw;
+  font-family:'Bebas Neue',sans-serif;
+  font-size:20vw;line-height:1;
+  color:rgba(201,168,76,0.04);
+  letter-spacing:-0.02em;
+  user-select:none;
+}
+.hero-content{position:relative;z-index:1;}
+.hero-eyebrow{
+  display:flex;align-items:center;gap:1.5rem;
+  font-size:0.65rem;letter-spacing:0.25em;text-transform:uppercase;
+  color:var(--gold);margin-bottom:2rem;
+}
+.hero-eyebrow::before{
+  content:'';display:block;width:50px;height:1px;background:var(--gold);
+}
+h1{
+  font-family:'Bebas Neue',sans-serif;
+  font-size:clamp(5rem,13vw,14rem);
+  line-height:0.88;letter-spacing:0.03em;
+  color:var(--white);
+  margin-bottom:0;
+}
+h1 .gold{color:var(--gold);}
+h1 .outline{
+  -webkit-text-stroke:1px var(--white);
+  color:transparent;
+}
+.hero-sub{
+  display:grid;grid-template-columns:1fr 1fr;
+  gap:4rem;margin-top:4rem;
+  max-width:900px;
+}
+.hero-desc{
+  font-size:1rem;color:var(--silver);
+  line-height:1.8;border-left:1px solid var(--gold-dim);
+  padding-left:1.5rem;
+}
+.hero-actions{
+  display:flex;flex-direction:column;
+  justify-content:center;gap:1.2rem;
+}
+.btn-gold{
+  font-size:0.7rem;letter-spacing:0.2em;text-transform:uppercase;
+  padding:1.1rem 2.5rem;
+  background:var(--gold);color:var(--black);
+  text-decoration:none;font-weight:500;
+  display:inline-block;transition:all 0.3s;
+  max-width:240px;text-align:center;
+}
+.btn-gold:hover{background:var(--white);}
+.btn-line{
+  font-size:0.7rem;letter-spacing:0.2em;text-transform:uppercase;
+  color:var(--silver);text-decoration:none;
+  display:flex;align-items:center;gap:0.8rem;
+  transition:color 0.3s;
+}
+.btn-line:hover{color:var(--gold);}
+.btn-line::after{content:'→';}
+.hero-strip{
+  position:absolute;bottom:0;left:0;right:0;
+  background:var(--gold);
+  padding:0.8rem 5vw;
+  display:flex;gap:4rem;overflow:hidden;
+}
+.strip-item{
+  font-size:0.65rem;letter-spacing:0.2em;text-transform:uppercase;
+  color:var(--black);font-weight:500;
+  white-space:nowrap;
+}
+
+/* MARQUEE */
+.marquee-section{
+  background:var(--panel);
+  border-top:1px solid var(--border);
+  border-bottom:1px solid var(--border);
+  padding:1.5rem 0;
+  overflow:hidden;
+}
+.marquee-track{
+  display:flex;gap:4rem;
+  animation:marquee 30s linear infinite;
+  width:max-content;
+}
+.marquee-track:hover{animation-play-state:paused;}
+@keyframes marquee{from{transform:translateX(0);}to{transform:translateX(-50%)}}
+.marquee-item{
+  font-family:'Bebas Neue',sans-serif;
+  font-size:1.4rem;letter-spacing:0.15em;
+  color:var(--text-dim);white-space:nowrap;
+  display:flex;align-items:center;gap:4rem;
+}
+.marquee-dot{
+  width:6px;height:6px;
+  background:var(--gold);border-radius:50%;
+}
+
+/* SECTION COMMON */
+section{padding:8rem 5vw;}
+.s-tag{
+  font-size:0.65rem;letter-spacing:0.25em;text-transform:uppercase;
+  color:var(--gold);margin-bottom:1rem;
+  display:flex;align-items:center;gap:1rem;
+}
+.s-tag::before{content:'//';color:var(--gold-dim);}
+h2{
+  font-family:'Bebas Neue',sans-serif;
+  font-size:clamp(3rem,6vw,6rem);
+  line-height:0.92;letter-spacing:0.04em;
+  color:var(--white);margin-bottom:2rem;
+}
+h2 .gold{color:var(--gold);}
+h2 .dim{color:var(--text-dim);}
+
+/* ABOUT */
+#about{background:var(--near-black);}
+.about-layout{
+  display:grid;grid-template-columns:1fr 1.4fr;
+  gap:8vw;align-items:center;margin-top:3rem;
+}
+.about-visual{
+  position:relative;
+  aspect-ratio:3/4;
+}
+.about-frame{
+  position:absolute;inset:0;
+  border:1px solid var(--border);
+}
+.about-inner{
+  position:absolute;
+  top:1.5rem;left:1.5rem;right:-1.5rem;bottom:-1.5rem;
+  background:var(--panel);
+  overflow:hidden;
+}
+.about-inner-pattern{
+  position:absolute;inset:0;
+  background-image:
+    repeating-linear-gradient(0deg,transparent,transparent 29px,rgba(201,168,76,0.07) 29px,rgba(201,168,76,0.07) 30px),
+    repeating-linear-gradient(90deg,transparent,transparent 29px,rgba(201,168,76,0.07) 29px,rgba(201,168,76,0.07) 30px);
+}
+.about-inner-text{
+  position:absolute;inset:0;
+  display:flex;flex-direction:column;
+  justify-content:center;align-items:center;
+  gap:0.5rem;
+}
+.ait-big{
+  font-family:'Bebas Neue',sans-serif;
+  font-size:8rem;line-height:1;color:rgba(201,168,76,0.12);
+  letter-spacing:0.1em;
+}
+.about-corner{
+  position:absolute;bottom:2.5rem;left:2.5rem;
+  background:var(--gold);padding:1.5rem 2rem;
+}
+.about-corner strong{
+  display:block;font-family:'Bebas Neue',sans-serif;
+  font-size:3rem;line-height:1;color:var(--black);
+}
+.about-corner span{
+  font-size:0.65rem;letter-spacing:0.15em;text-transform:uppercase;color:var(--black);opacity:0.7;
+}
+.about-text h2{margin-bottom:1.5rem;}
+.about-text p{color:var(--silver);margin-bottom:1.5rem;font-size:0.95rem;}
+.about-specs{
+  display:grid;grid-template-columns:1fr 1fr;
+  gap:0;margin-top:3rem;
+  border-top:1px solid var(--border);
+}
+.spec-item{
+  padding:1.5rem;
+  border-bottom:1px solid var(--border);
+  border-right:1px solid var(--border);
+}
+.spec-item:nth-child(2n){border-right:none;}
+.spec-num{
+  font-family:'Bebas Neue',sans-serif;
+  font-size:2.5rem;color:var(--gold);line-height:1;
+}
+.spec-label{font-size:0.72rem;letter-spacing:0.12em;text-transform:uppercase;color:var(--text-dim);}
+
+/* COLLECTION */
+#collection{background:var(--black);}
+.collection-header{
+  display:grid;grid-template-columns:1fr 1fr;
+  align-items:end;margin-bottom:4rem;
+}
+.collection-header p{color:var(--silver);font-size:0.95rem;max-width:400px;text-align:right;align-self:end;}
+.coll-grid{
+  display:grid;
+  grid-template-columns:2fr 1fr 1fr;
+  grid-template-rows:auto auto;
+  gap:3px;
+}
+.coll-card{
+  position:relative;overflow:hidden;
+  background:var(--panel);
+}
+.coll-card:first-child{
+  grid-row:span 2;
+  min-height:700px;
+}
+.coll-card:not(:first-child){min-height:280px;}
+.coll-bg{
+  position:absolute;inset:0;
+  transition:transform 0.8s cubic-bezier(0.25,0.46,0.45,0.94);
+}
+.coll-card:hover .coll-bg{transform:scale(1.06);}
+.cb1{background:radial-gradient(ellipse at 30% 70%,#2A2018 0%,#141010 100%);}
+.cb2{background:radial-gradient(ellipse at 70% 30%,#1A1F2A 0%,#0E1018 100%);}
+.cb3{background:radial-gradient(ellipse at 50% 50%,#1E1A10 0%,#14120A 100%);}
+.cb4{background:radial-gradient(ellipse at 20% 80%,#201A18 0%,#140E0C 100%);}
+.cb5{background:radial-gradient(ellipse at 80% 20%,#181820 0%,#101014 100%);}
+.coll-texture{
+  position:absolute;inset:0;
+  opacity:0.4;
+}
+.ct-carbon{
+  background-image:
+    repeating-linear-gradient(45deg,transparent,transparent 2px,rgba(255,255,255,0.03) 2px,rgba(255,255,255,0.03) 3px),
+    repeating-linear-gradient(-45deg,transparent,transparent 2px,rgba(255,255,255,0.03) 2px,rgba(255,255,255,0.03) 3px);
+}
+.ct-silk{
+  background-image:
+    repeating-linear-gradient(0deg,transparent,transparent 1px,rgba(255,255,255,0.04) 1px,rgba(255,255,255,0.04) 2px);
+}
+.ct-mesh{
+  background-image:
+    repeating-linear-gradient(0deg,transparent,transparent 5px,rgba(255,255,255,0.04) 5px,rgba(255,255,255,0.04) 6px),
+    repeating-linear-gradient(90deg,transparent,transparent 5px,rgba(255,255,255,0.04) 5px,rgba(255,255,255,0.04) 6px);
+}
+.coll-overlay{
+  position:absolute;inset:0;
+  background:linear-gradient(to top,rgba(8,8,8,0.85) 0%,rgba(8,8,8,0.1) 60%,transparent 100%);
+}
+.coll-info{
+  position:absolute;bottom:0;left:0;right:0;
+  padding:2.5rem;
+}
+.coll-num{
+  font-family:'Bebas Neue',sans-serif;
+  font-size:0.9rem;letter-spacing:0.3em;
+  color:var(--gold);margin-bottom:0.5rem;
+}
+.coll-name{
+  font-family:'Bebas Neue',sans-serif;
+  font-size:2rem;letter-spacing:0.08em;
+  color:var(--white);line-height:1;margin-bottom:0.5rem;
+}
+.coll-card:first-child .coll-name{font-size:3.5rem;}
+.coll-desc{
+  font-size:0.8rem;color:var(--silver);
+  max-height:0;overflow:hidden;
+  transition:max-height 0.4s ease;
+}
+.coll-card:hover .coll-desc{max-height:60px;}
+
+/* TECHNOLOGY */
+#technology{background:var(--panel);}
+.tech-layout{
+  display:grid;grid-template-columns:1fr 1fr;
+  gap:8vw;align-items:start;margin-top:3rem;
+}
+.tech-list{display:flex;flex-direction:column;gap:0;}
+.tech-item{
+  border-top:1px solid var(--border);
+  padding:2rem 0;
+  display:grid;grid-template-columns:4rem 1fr;
+  gap:1.5rem;
+  transition:background 0.3s;
+  cursor:default;
+}
+.tech-item:last-child{border-bottom:1px solid var(--border);}
+.tech-item:hover{background:rgba(201,168,76,0.03);}
+.tech-item-num{
+  font-family:'Bebas Neue',sans-serif;
+  font-size:1.5rem;color:var(--gold-dim);
+  padding-top:0.2rem;
+}
+.tech-item h3{
+  font-family:'Libre Baskerville',serif;
+  font-size:1.05rem;font-weight:400;
+  font-style:italic;color:var(--white);
+  margin-bottom:0.5rem;
+}
+.tech-item p{font-size:0.85rem;color:var(--text-dim);}
+.tech-visual{
+  position:sticky;top:10rem;
+  background:var(--black);
+  border:1px solid var(--border);
+  aspect-ratio:1;
+  display:flex;align-items:center;justify-content:center;
+  overflow:hidden;
+}
+.tech-svg-wrap{width:80%;height:80%;position:relative;}
+
+/* CLIENTS / STATS */
+#stats{
+  background:var(--black);
+  border-top:1px solid var(--border);
+  border-bottom:1px solid var(--border);
+  padding:6rem 5vw;
+}
+.stats-row{
+  display:grid;grid-template-columns:repeat(4,1fr);
+  gap:0;
+}
+.stat-block{
+  padding:3rem;
+  border-right:1px solid var(--border);
+  text-align:center;
+}
+.stat-block:last-child{border-right:none;}
+.stat-n{
+  font-family:'Bebas Neue',sans-serif;
+  font-size:5rem;line-height:1;
+  color:var(--white);letter-spacing:0.02em;
+}
+.stat-n span{color:var(--gold);}
+.stat-l{
+  font-size:0.65rem;letter-spacing:0.2em;text-transform:uppercase;
+  color:var(--text-dim);margin-top:0.5rem;
+}
+
+/* CLIENTS LOGOS */
+.clients-row{
+  margin-top:5rem;border-top:1px solid var(--border);
+  padding-top:3rem;
+  display:flex;align-items:center;gap:4rem;flex-wrap:wrap;
+}
+.clients-label{
+  font-size:0.65rem;letter-spacing:0.2em;text-transform:uppercase;
+  color:var(--text-dim);white-space:nowrap;flex-shrink:0;
+}
+.client-logos{display:flex;gap:3rem;flex-wrap:wrap;align-items:center;flex:1;}
+.client-logo{
+  font-family:'Bebas Neue',sans-serif;
+  font-size:1.4rem;letter-spacing:0.15em;
+  color:var(--text-dim);
+  transition:color 0.3s;cursor:default;
+}
+.client-logo:hover{color:var(--silver);}
+
+/* PROCESS */
+#process{background:var(--near-black);}
+.process-timeline{
+  position:relative;margin-top:4rem;
+  padding-left:3rem;
+  border-left:1px solid var(--border);
+}
+.pt-item{
+  position:relative;margin-bottom:3.5rem;
+  padding-left:3rem;
+}
+.pt-item:last-child{margin-bottom:0;}
+.pt-dot{
+  position:absolute;left:-3.3rem;top:0.3rem;
+  width:10px;height:10px;
+  border:1px solid var(--gold);
+  background:var(--black);
+  transform:rotate(45deg);
+}
+.pt-item:hover .pt-dot{background:var(--gold);}
+.pt-num{
+  font-family:'Bebas Neue',sans-serif;
+  font-size:0.8rem;letter-spacing:0.3em;
+  color:var(--gold-dim);margin-bottom:0.5rem;
+}
+.pt-title{
+  font-family:'Libre Baskerville',serif;
+  font-size:1.3rem;font-weight:400;font-style:italic;
+  color:var(--white);margin-bottom:0.6rem;
+}
+.pt-desc{font-size:0.9rem;color:var(--text-dim);max-width:600px;}
+.process-layout{
+  display:grid;grid-template-columns:1fr 1fr;
+  gap:8vw;align-items:start;
+}
+.process-right{
+  position:sticky;top:10rem;
+}
+.process-right h2{margin-bottom:1.5rem;}
+.process-right p{color:var(--silver);font-size:0.95rem;margin-bottom:2rem;}
+
+/* TESTIMONIALS */
+#testimonials{background:var(--black);}
+.testi-grid{
+  display:grid;grid-template-columns:1.5fr 1fr;
+  gap:3px;margin-top:4rem;
+}
+.testi-featured{
+  background:var(--panel);
+  padding:4rem;
+  position:relative;overflow:hidden;
+}
+.testi-featured::before{
+  content:'\201C';
+  font-family:'Bebas Neue',sans-serif;
+  font-size:20rem;line-height:0.8;
+  color:rgba(201,168,76,0.04);
+  position:absolute;top:-1rem;left:-1rem;
+  user-select:none;
+}
+.testi-featured blockquote{
+  font-family:'Libre Baskerville',serif;
+  font-size:1.4rem;font-weight:400;font-style:italic;
+  color:var(--light);line-height:1.6;
+  position:relative;z-index:1;margin-bottom:2.5rem;
+}
+.testi-attr{display:flex;align-items:center;gap:1.2rem;}
+.testi-avatar{
+  width:48px;height:48px;
+  border:1px solid var(--gold-dim);
+  display:flex;align-items:center;justify-content:center;
+  font-family:'Bebas Neue',sans-serif;
+  font-size:1.2rem;color:var(--gold);
+}
+.testi-attr-text strong{font-size:0.9rem;font-weight:500;color:var(--white);display:block;}
+.testi-attr-text span{font-size:0.78rem;color:var(--text-dim);}
+.testi-stack{display:flex;flex-direction:column;gap:3px;}
+.testi-small{
+  background:var(--panel);padding:2.5rem;
+  flex:1;position:relative;
+}
+.testi-small p{
+  font-size:0.9rem;color:var(--silver);
+  font-style:italic;margin-bottom:1.5rem;line-height:1.7;
+}
+.testi-small strong{font-size:0.78rem;font-weight:500;color:var(--gold);letter-spacing:0.08em;}
+.testi-small span{font-size:0.72rem;color:var(--text-dim);display:block;}
+
+/* SUSTAINABILITY */
+#sustain{
+  background:var(--panel);
+  position:relative;overflow:hidden;
+}
+.sustain-noise{
+  position:absolute;inset:0;
+  background-image:url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)' opacity='0.03'/%3E%3C/svg%3E");
+  opacity:0.4;
+}
+.sustain-grid{
+  display:grid;grid-template-columns:1fr 1fr;
+  gap:0;
+}
+.sustain-content{padding:8rem 5vw;position:relative;}
+.sustain-metrics{
+  display:grid;grid-template-columns:1fr 1fr;
+  gap:0;margin-top:3rem;
+  border:1px solid var(--border);
+}
+.sustain-m{
+  padding:2rem;
+  border-right:1px solid var(--border);
+  border-bottom:1px solid var(--border);
+}
+.sustain-m:nth-child(2n){border-right:none;}
+.sustain-m:nth-last-child(-n+2){border-bottom:none;}
+.s-m-val{
+  font-family:'Bebas Neue',sans-serif;
+  font-size:3rem;color:var(--gold);line-height:1;
+}
+.s-m-label{font-size:0.65rem;letter-spacing:0.15em;text-transform:uppercase;color:var(--text-dim);}
+.sustain-right{
+  background:var(--black);
+  display:flex;flex-direction:column;justify-content:center;
+  align-items:center;padding:8rem 5vw;
+  position:relative;
+}
+.sustain-ring{
+  width:260px;height:260px;position:relative;
+  margin-bottom:3rem;
+}
+.certif-grid{
+  display:grid;grid-template-columns:1fr 1fr;
+  gap:1px;width:100%;
+}
+.certif-item{
+  background:var(--panel);padding:1.5rem;
+  border:1px solid var(--border);text-align:center;
+}
+.certif-item strong{
+  display:block;font-family:'Bebas Neue',sans-serif;
+  font-size:1.6rem;letter-spacing:0.1em;color:var(--gold);
+}
+.certif-item span{font-size:0.65rem;letter-spacing:0.1em;text-transform:uppercase;color:var(--text-dim);}
+
+/* CONTACT */
+#contact{background:var(--black);}
+.contact-split{
+  display:grid;grid-template-columns:1fr 1fr;
+  gap:0;margin-top:3rem;
+}
+.contact-left{
+  background:var(--gold);
+  padding:5rem;
+  display:flex;flex-direction:column;justify-content:space-between;
+}
+.contact-left h3{
+  font-family:'Bebas Neue',sans-serif;
+  font-size:4rem;line-height:0.92;letter-spacing:0.04em;
+  color:var(--black);
+}
+.contact-left p{font-size:0.9rem;color:rgba(0,0,0,0.7);margin-top:1.5rem;}
+.contact-details-list{margin-top:3rem;display:flex;flex-direction:column;gap:1.5rem;}
+.cd-item strong{display:block;font-size:0.65rem;letter-spacing:0.2em;text-transform:uppercase;color:rgba(0,0,0,0.5);margin-bottom:0.3rem;}
+.cd-item span{font-size:0.9rem;color:var(--black);}
+.contact-right{
+  background:var(--panel);
+  padding:5rem;
+  border:1px solid var(--border);
+}
+.contact-form{display:flex;flex-direction:column;gap:1.5rem;}
+.cf-group{display:flex;flex-direction:column;gap:0.5rem;}
+.cf-group label{font-size:0.65rem;letter-spacing:0.2em;text-transform:uppercase;color:var(--text-dim);}
+.cf-group input,
+.cf-group select,
+.cf-group textarea{
+  font-family:'Barlow',sans-serif;
+  font-size:0.9rem;font-weight:300;
+  background:var(--black);border:1px solid var(--border);
+  color:var(--light);padding:1rem 1.2rem;
+  outline:none;transition:border-color 0.3s;
+  resize:none;
+}
+.cf-group input:focus,
+.cf-group select:focus,
+.cf-group textarea:focus{border-color:var(--gold);}
+.cf-group select option{background:var(--black);}
+.cf-row{display:grid;grid-template-columns:1fr 1fr;gap:1rem;}
+.cf-submit{
+  font-family:'Barlow',sans-serif;
+  font-size:0.7rem;letter-spacing:0.2em;text-transform:uppercase;
+  padding:1.1rem 2.5rem;background:var(--gold);color:var(--black);
+  border:none;cursor:pointer;font-weight:500;
+  transition:all 0.3s;align-self:flex-start;
+  margin-top:0.5rem;
+}
+.cf-submit:hover{background:var(--white);}
+
+/* FOOTER */
+footer{
+  background:var(--near-black);
+  border-top:1px solid var(--border);
+}
+.footer-main{
+  display:grid;grid-template-columns:2fr 1fr 1fr 1fr;
+  gap:4rem;padding:5rem 5vw 4rem;
+}
+.footer-brand{
+  font-family:'Bebas Neue',sans-serif;
+  font-size:3rem;letter-spacing:0.15em;color:var(--white);
+  margin-bottom:1rem;
+}
+.footer-brand span{color:var(--gold);}
+.footer-tagline{font-size:0.85rem;color:var(--text-dim);max-width:280px;line-height:1.7;}
+.footer-col h4{
+  font-size:0.65rem;letter-spacing:0.2em;text-transform:uppercase;
+  color:var(--gold-dim);margin-bottom:1.5rem;
+}
+.footer-col ul{list-style:none;display:flex;flex-direction:column;gap:0.8rem;}
+.footer-col a{font-size:0.85rem;color:var(--text-dim);text-decoration:none;transition:color 0.3s;}
+.footer-col a:hover{color:var(--silver);}
+.footer-bottom{
+  border-top:1px solid var(--border);
+  padding:2rem 5vw;
+  display:flex;justify-content:space-between;align-items:center;
+}
+.footer-bottom p{font-size:0.75rem;color:var(--text-dim);}
+.footer-bottom a{color:var(--gold-dim);text-decoration:none;font-size:0.75rem;}
+
+/* ANIMATIONS */
+.reveal{
+  opacity:0;transform:translateY(40px);
+  transition:opacity 0.9s ease,transform 0.9s ease;
+}
+.reveal.in{opacity:1;transform:translateY(0);}
+.reveal-left{
+  opacity:0;transform:translateX(-40px);
+  transition:opacity 0.9s ease,transform 0.9s ease;
+}
+.reveal-left.in{opacity:1;transform:translateX(0);}
+.stagger-1{transition-delay:0.1s;}
+.stagger-2{transition-delay:0.2s;}
+.stagger-3{transition-delay:0.3s;}
+.stagger-4{transition-delay:0.4s;}
+
+@media(max-width:900px){
+  #hero{padding-top:100px;}
+  .hero-diagonal{display:none;}
+  .hero-sub{grid-template-columns:1fr;}
+  .about-layout,.collection-header,.tech-layout,.process-layout,
+  .sustain-grid,.contact-split,.testi-grid{grid-template-columns:1fr;}
+  .coll-grid{grid-template-columns:1fr 1fr;}
+  .coll-card:first-child{grid-row:span 1;min-height:300px;}
+  .stats-row{grid-template-columns:1fr 1fr;}
+  .footer-main{grid-template-columns:1fr 1fr;}
+  .nav-center{display:none;}
+}
+</style>
+</head>
+<body>
+
+<div class="cursor" id="cursor"></div>
+<div class="cursor-ring" id="cursorRing"></div>
+
+<!-- NAV -->
+<nav id="main-nav">
+  <a href="#hero" class="nav-logo">VEL<span>DRA</span></a>
+  <ul class="nav-center">
+    <li><a href="#about">Studio</a></li>
+    <li><a href="#collection">Collection</a></li>
+    <li><a href="#technology">Technology</a></li>
+    <li><a href="#sustain">Ethics</a></li>
+  </ul>
+  <div class="nav-right">
+    <span class="nav-tag">Milan · Tokyo · Mumbai</span>
+    <a href="#contact" class="nav-btn">Commission</a>
+  </div>
+</nav>
+
+<!-- HERO -->
+<section id="hero">
+  <div class="hero-bg"></div>
+  <div class="hero-grid-lines"></div>
+  <div class="hero-diagonal">
+    <div class="hero-diagonal-pattern"></div>
+  </div>
+  <div class="hero-year">2025</div>
+  <div class="hero-content">
+    <p class="hero-eyebrow">Technical Luxury Textiles · Est. 2001</p>
+    <h1>
+      VELDRA<br>
+      <span class="outline">TEXTILES</span>
+    </h1>
+    <div class="hero-sub">
+      <p class="hero-desc">Engineered for the couture houses. Constructed for the future. Veldra creates technical-luxury fabrics at the precise intersection of performance science and haute craft.</p>
+      <div class="hero-actions">
+        <a href="#collection" class="btn-gold">View Collection 2025</a>
+        <a href="#about" class="btn-line">Our Philosophy</a>
+      </div>
+    </div>
+  </div>
+  <div class="hero-strip">
+    <span class="strip-item">● Technical Luxury Since 2001</span>
+    <span class="strip-item">● 60+ Couture Partners Worldwide</span>
+    <span class="strip-item">● Zero Compromise on Performance</span>
+    <span class="strip-item">● Engineered in Italy, Crafted in India</span>
+    <span class="strip-item">● ISO 9001 · Bluesign® · OEKO-TEX®</span>
+    <span class="strip-item">● Technical Luxury Since 2001</span>
+    <span class="strip-item">● 60+ Couture Partners Worldwide</span>
+  </div>
+</section>
+
+<!-- MARQUEE -->
+<div class="marquee-section">
+  <div class="marquee-track">
+    <span class="marquee-item">AEROFLEX SERIES <span class="marquee-dot"></span></span>
+    <span class="marquee-item">SILK-CARBON WEAVE <span class="marquee-dot"></span></span>
+    <span class="marquee-item">THERMOLUX COLLECTION <span class="marquee-dot"></span></span>
+    <span class="marquee-item">ZERO WASTE CYCLE <span class="marquee-dot"></span></span>
+    <span class="marquee-item">BIOPURE FINISHES <span class="marquee-dot"></span></span>
+    <span class="marquee-item">NANO-COATED DRAPES <span class="marquee-dot"></span></span>
+    <span class="marquee-item">AEROFLEX SERIES <span class="marquee-dot"></span></span>
+    <span class="marquee-item">SILK-CARBON WEAVE <span class="marquee-dot"></span></span>
+    <span class="marquee-item">THERMOLUX COLLECTION <span class="marquee-dot"></span></span>
+    <span class="marquee-item">ZERO WASTE CYCLE <span class="marquee-dot"></span></span>
+    <span class="marquee-item">BIOPURE FINISHES <span class="marquee-dot"></span></span>
+    <span class="marquee-item">NANO-COATED DRAPES <span class="marquee-dot"></span></span>
+  </div>
+</div>
+
+<!-- ABOUT -->
+<section id="about">
+  <div class="about-layout">
+    <div class="about-visual reveal-left">
+      <div class="about-frame"></div>
+      <div class="about-inner">
+        <div class="about-inner-pattern"></div>
+        <div class="about-inner-text">
+          <div class="ait-big">V</div>
+        </div>
+        <div class="about-corner">
+          <strong>24</strong>
+          <span>Years of<br>Precision</span>
+        </div>
+      </div>
+    </div>
+    <div class="about-text">
+      <p class="s-tag reveal">The Studio</p>
+      <h2 class="reveal stagger-1">WHERE SCIENCE<br><span class="gold">MEETS</span><br><span class="dim">COUTURE</span></h2>
+      <p class="reveal stagger-2">Founded in Milan in 2001 by textile engineer Dr. Leena Varma and fashion designer Marco Alteri, Veldra was built on a single conviction: luxury and performance need not be opposites.</p>
+      <p class="reveal stagger-3">Our fabrics are worn on runways in Paris, tested in the laboratories of elite sportswear houses, and used in aerospace-grade interior applications. The thread count is the same — the intent is everything.</p>
+      <div class="about-specs reveal stagger-4">
+        <div class="spec-item">
+          <div class="spec-num">60<span style="font-size:1.5rem;color:var(--gold-dim)">+</span></div>
+          <div class="spec-label">Couture Clients</div>
+        </div>
+        <div class="spec-item">
+          <div class="spec-num">34</div>
+          <div class="spec-label">Countries Served</div>
+        </div>
+        <div class="spec-item">
+          <div class="spec-num">800<span style="font-size:1.5rem;color:var(--gold-dim)">+</span></div>
+          <div class="spec-label">Fabric Constructions</div>
+        </div>
+        <div class="spec-item">
+          <div class="spec-num">3</div>
+          <div class="spec-label">Global Studios</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- COLLECTION -->
+<section id="collection">
+  <div class="collection-header reveal">
+    <div>
+      <p class="s-tag">2025 Collection</p>
+      <h2>THE FABRIC<br>ARCHIVE</h2>
+    </div>
+    <p>Each material is catalogued by construction, performance rating, and aesthetic intent. Hover to inspect. Request swatches to experience.</p>
+  </div>
+  <div class="coll-grid">
+    <div class="coll-card reveal">
+      <div class="coll-bg cb1"></div>
+      <div class="coll-texture ct-carbon"></div>
+      <div class="coll-overlay"></div>
+      <div class="coll-info">
+        <div class="coll-num">V · 001 · 2025</div>
+        <div class="coll-name">NOIR AEROFLEX</div>
+        <div class="coll-desc">Ultra-lightweight carbon-silk hybrid. Tensile strength 3× standard silk. Couture grade, aerospace tested. Available in 6 weights.</div>
+      </div>
+    </div>
+    <div class="coll-card reveal stagger-1">
+      <div class="coll-bg cb2"></div>
+      <div class="coll-texture ct-silk"></div>
+      <div class="coll-overlay"></div>
+      <div class="coll-info">
+        <div class="coll-num">V · 002 · 2025</div>
+        <div class="coll-name">CIEL DRAPE</div>
+        <div class="coll-desc">Fluid micro-modal with temperature-regulating nano-coating. Ideal for resort and eveningwear.</div>
+      </div>
+    </div>
+    <div class="coll-card reveal stagger-2">
+      <div class="coll-bg cb3"></div>
+      <div class="coll-texture ct-mesh"></div>
+      <div class="coll-overlay"></div>
+      <div class="coll-info">
+        <div class="coll-num">V · 003 · 2025</div>
+        <div class="coll-name">THERMOLUX</div>
+        <div class="coll-desc">Phase-change insulation woven into a luxury brushed face. Outer: cashmere feel. Inner: thermal science.</div>
+      </div>
+    </div>
+    <div class="coll-card reveal stagger-3">
+      <div class="coll-bg cb4"></div>
+      <div class="coll-texture ct-carbon"></div>
+      <div class="coll-overlay"></div>
+      <div class="coll-info">
+        <div class="coll-num">V · 004 · 2025</div>
+        <div class="coll-name">ONYX MESH</div>
+        <div class="coll-desc">Architectural open-weave for structural garments. Light-manipulating geometry, no stretch.</div>
+      </div>
+    </div>
+    <div class="coll-card reveal stagger-4">
+      <div class="coll-bg cb5"></div>
+      <div class="coll-texture ct-silk"></div>
+      <div class="coll-overlay"></div>
+      <div class="coll-info">
+        <div class="coll-num">V · 005 · 2025</div>
+        <div class="coll-name">VELDT BOUCLE</div>
+        <div class="coll-desc">Recycled-fibre boucle with ultra-matte finish. 100% traceable. Zero-waste yarn construction.</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- TECHNOLOGY -->
+<section id="technology">
+  <div class="tech-layout">
+    <div>
+      <p class="s-tag reveal">Our Technology</p>
+      <h2 class="reveal stagger-1">ENGINEERED<br>AT THE <span class="gold">THREAD</span></h2>
+      <div class="tech-list">
+        <div class="tech-item reveal stagger-1">
+          <div class="tech-item-num">01</div>
+          <div>
+            <h3>Nano-Surface Coating</h3>
+            <p>Proprietary NanoShield™ process bonds water, stain, and UV repellency at the molecular level without altering hand-feel or breathability.</p>
+          </div>
+        </div>
+        <div class="tech-item reveal stagger-2">
+          <div class="tech-item-num">02</div>
+          <div>
+            <h3>Hybrid Yarn Architecture</h3>
+            <p>Custom core-spun yarns combining natural luxury fibres with high-tenacity technical filaments — single material, dual performance.</p>
+          </div>
+        </div>
+        <div class="tech-item reveal stagger-3">
+          <div class="tech-item-num">03</div>
+          <div>
+            <h3>Phase-Change Thermal Regulation</h3>
+            <p>Microencapsulated PCM technology woven into fabric structure, not applied as a coating — permanent, washfast, and invisible.</p>
+          </div>
+        </div>
+        <div class="tech-item reveal stagger-4">
+          <div class="tech-item-num">04</div>
+          <div>
+            <h3>AI-Assisted Dobby Design</h3>
+            <p>Our Milan R&D studio uses generative weave-structure algorithms to prototype constructions 80% faster than traditional methods.</p>
+          </div>
+        </div>
+        <div class="tech-item reveal">
+          <div class="tech-item-num">05</div>
+          <div>
+            <h3>Zero Liquid Discharge Dyeing</h3>
+            <p>Closed-loop supercritical CO₂ dyeing on select lines — no water used, no effluent produced. Colour intensity matches conventional wet processes.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="tech-visual reveal">
+      <svg viewBox="0 0 400 400" xmlns="http://www.w3.org/2000/svg" width="100%" height="100%">
+        <defs>
+          <pattern id="tgrid" x="0" y="0" width="40" height="40" patternUnits="userSpaceOnUse">
+            <path d="M 40 0 L 0 0 0 40" fill="none" stroke="rgba(201,168,76,0.08)" stroke-width="0.5"/>
+          </pattern>
+        </defs>
+        <rect width="400" height="400" fill="url(#tgrid)"/>
+        <circle cx="200" cy="200" r="150" fill="none" stroke="rgba(201,168,76,0.15)" stroke-width="0.5"/>
+        <circle cx="200" cy="200" r="110" fill="none" stroke="rgba(201,168,76,0.2)" stroke-width="0.5"/>
+        <circle cx="200" cy="200" r="70" fill="none" stroke="rgba(201,168,76,0.3)" stroke-width="1"/>
+        <circle cx="200" cy="200" r="30" fill="rgba(201,168,76,0.08)" stroke="rgba(201,168,76,0.5)" stroke-width="1"/>
+        <line x1="200" y1="50" x2="200" y2="350" stroke="rgba(201,168,76,0.1)" stroke-width="0.5"/>
+        <line x1="50" y1="200" x2="350" y2="200" stroke="rgba(201,168,76,0.1)" stroke-width="0.5"/>
+        <line x1="94" y1="94" x2="306" y2="306" stroke="rgba(201,168,76,0.06)" stroke-width="0.5"/>
+        <line x1="306" y1="94" x2="94" y2="306" stroke="rgba(201,168,76,0.06)" stroke-width="0.5"/>
+        <g transform="rotate(0,200,200)"><circle cx="200" cy="90" r="5" fill="var(--gold)"/></g>
+        <g transform="rotate(72,200,200)"><circle cx="200" cy="90" r="5" fill="rgba(201,168,76,0.6)"/></g>
+        <g transform="rotate(144,200,200)"><circle cx="200" cy="90" r="5" fill="rgba(201,168,76,0.4)"/></g>
+        <g transform="rotate(216,200,200)"><circle cx="200" cy="90" r="5" fill="rgba(201,168,76,0.6)"/></g>
+        <g transform="rotate(288,200,200)"><circle cx="200" cy="90" r="5" fill="rgba(201,168,76,0.4)"/></g>
+        <text x="200" y="196" text-anchor="middle" font-family="'Bebas Neue',sans-serif" font-size="13" fill="rgba(201,168,76,0.6)" letter-spacing="4">VELDRA</text>
+        <text x="200" y="214" text-anchor="middle" font-family="'Barlow',sans-serif" font-size="8" fill="rgba(201,168,76,0.3)" letter-spacing="3">FABRIC SCIENCE</text>
+        <animateTransform attributeName="transform" type="rotate" from="0 200 200" to="360 200 200" dur="40s" repeatCount="indefinite" additive="sum"/>
+      </svg>
+    </div>
+  </div>
+</section>
+
+<!-- STATS -->
+<section id="stats">
+  <div class="stats-row">
+    <div class="stat-block reveal">
+      <div class="stat-n">60<span>+</span></div>
+      <div class="stat-l">Couture Partners</div>
+    </div>
+    <div class="stat-block reveal stagger-1">
+      <div class="stat-n">800<span>+</span></div>
+      <div class="stat-l">Fabric Constructions</div>
+    </div>
+    <div class="stat-block reveal stagger-2">
+      <div class="stat-n">34</div>
+      <div class="stat-l">Export Markets</div>
+    </div>
+    <div class="stat-block reveal stagger-3">
+      <div class="stat-n">24</div>
+      <div class="stat-l">Years in Operation</div>
+    </div>
+  </div>
+  <div class="clients-row reveal">
+    <span class="clients-label">As trusted by —</span>
+    <div class="client-logos">
+      <span class="client-logo">MAISON ALTERI</span>
+      <span class="client-logo">SCHWARZFELD</span>
+      <span class="client-logo">TONIQUE PARIS</span>
+      <span class="client-logo">VESTARA SPORT</span>
+      <span class="client-logo">NORDI HAUS</span>
+      <span class="client-logo">ARIA COLLECTIVE</span>
+    </div>
+  </div>
+</section>
+
+<!-- PROCESS -->
+<section id="process">
+  <div class="process-layout">
+    <div>
+      <p class="s-tag reveal">Process</p>
+      <div class="process-timeline">
+        <div class="pt-item reveal">
+          <div class="pt-dot"></div>
+          <div class="pt-num">PHASE 01</div>
+          <div class="pt-title">Fibre Selection & Sourcing</div>
+          <div class="pt-desc">Every fibre origin is audited. We work directly with Mongolian cashmere co-ops, Italian silk throwsters, and certified recycled polyester suppliers. No intermediaries. No compromise.</div>
+        </div>
+        <div class="pt-item reveal stagger-1">
+          <div class="pt-dot"></div>
+          <div class="pt-num">PHASE 02</div>
+          <div class="pt-title">Yarn Engineering</div>
+          <div class="pt-desc">Our yarn lab in Surat blends, twists, and core-spins custom constructions. Each yarn recipe is proprietary to the client's brief and protected under NDA.</div>
+        </div>
+        <div class="pt-item reveal stagger-2">
+          <div class="pt-dot"></div>
+          <div class="pt-num">PHASE 03</div>
+          <div class="pt-title">Weaving & Knitting</div>
+          <div class="pt-desc">Multi-rapier jacquard looms and flatbed knitting systems rated up to 200 inches. CAD-to-loom in 48 hours for sampling.</div>
+        </div>
+        <div class="pt-item reveal stagger-3">
+          <div class="pt-dot"></div>
+          <div class="pt-num">PHASE 04</div>
+          <div class="pt-title">Technical Finishing</div>
+          <div class="pt-desc">NanoShield™ coating, phase-change impregnation, enzyme bio-finishing, calendering, and Sanfor-stretch — applied with zero cross-contamination between runs.</div>
+        </div>
+        <div class="pt-item reveal stagger-4">
+          <div class="pt-dot"></div>
+          <div class="pt-num">PHASE 05</div>
+          <div class="pt-title">QC, Certification & Dispatch</div>
+          <div class="pt-desc">Digital fabric inspection at 120m/min. Bluesign®, OEKO-TEX®, and Cradle to Cradle reporting available. White-glove delivery to studio.</div>
+        </div>
+      </div>
+    </div>
+    <div class="process-right">
+      <p class="s-tag reveal">Our Guarantee</p>
+      <h2 class="reveal stagger-1">PRECISION<br>IN EVERY<br><span class="gold">PASS</span></h2>
+      <p class="reveal stagger-2">Every client receives a full technical data sheet, a signed quality certificate, and a dedicated account manager for the lifetime of the project. We don't ship fabric. We deliver confidence.</p>
+      <a href="#contact" class="btn-gold reveal stagger-3" style="margin-top:1rem;">Start a Commission</a>
+    </div>
+  </div>
+</section>
+
+<!-- TESTIMONIALS -->
+<section id="testimonials">
+  <p class="s-tag reveal">Voices</p>
+  <h2 class="reveal stagger-1">WHAT OUR<br><span class="gold">PARTNERS</span><br>SAY</h2>
+  <div class="testi-grid">
+    <div class="testi-featured reveal">
+      <blockquote>"Veldra fabrics don't just perform — they communicate. There's an authority in the way the NOIR AEROFLEX drapes that no other technical fabric house has managed to achieve. We've built two full collections around their constructions."</blockquote>
+      <div class="testi-attr">
+        <div class="testi-avatar">MA</div>
+        <div class="testi-attr-text">
+          <strong>Marco Alteri</strong>
+          <span>Creative Director, Maison Alteri — Milan</span>
+        </div>
+      </div>
+    </div>
+    <div class="testi-stack">
+      <div class="testi-small reveal stagger-1">
+        <p>"The ZLD dyeing process they use is genuinely the most credible sustainable innovation I've encountered in 20 years of buying. The colour saturation is indistinguishable from conventional methods."</p>
+        <strong>Petra Schwarzfeld</strong>
+        <span>Head of Material Innovation, Schwarzfeld Haus</span>
+      </div>
+      <div class="testi-small reveal stagger-2">
+        <p>"Sampling to bulk approval in 12 days. That's unheard of at this quality level. Veldra has completely reset our expectation of what a luxury fabric supplier can deliver operationally."</p>
+        <strong>Yuki Tanaka</strong>
+        <span>Sourcing Director, Nordi Haus Tokyo</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- SUSTAINABILITY -->
+<section id="sustain">
+  <div class="sustain-noise"></div>
+  <div class="sustain-grid">
+    <div class="sustain-content">
+      <p class="s-tag reveal">Ethics & Sustainability</p>
+      <h2 class="reveal stagger-1">WE MAKE<br>NO<br><span class="gold">CLAIMS</span><br>WE DON'T KEEP</h2>
+      <p class="reveal stagger-2" style="color:var(--silver);margin-top:1rem;max-width:440px;font-size:0.95rem;">Verified third-party data. Published annually. No greenwashing. Our Bluesign® and Cradle to Cradle certifications are renewed every 12 months — not mounted on walls.</p>
+      <div class="sustain-metrics reveal stagger-3">
+        <div class="sustain-m">
+          <div class="s-m-val">92%</div>
+          <div class="s-m-label">Water Recycled</div>
+        </div>
+        <div class="sustain-m">
+          <div class="s-m-val">78%</div>
+          <div class="s-m-label">Renewable Energy</div>
+        </div>
+        <div class="sustain-m">
+          <div class="s-m-val">Zero</div>
+          <div class="s-m-label">Effluent Discharge</div>
+        </div>
+        <div class="sustain-m">
+          <div class="s-m-val">2030</div>
+          <div class="s-m-label">Carbon Neutral Target</div>
+        </div>
+      </div>
+    </div>
+    <div class="sustain-right">
+      <div class="sustain-ring">
+        <svg viewBox="0 0 260 260" width="260" height="260">
+          <circle cx="130" cy="130" r="120" fill="none" stroke="rgba(201,168,76,0.1)" stroke-width="1"/>
+          <circle cx="130" cy="130" r="100" fill="none" stroke="rgba(201,168,76,0.15)" stroke-width="0.5"/>
+          <circle cx="130" cy="130" r="80" fill="none" stroke="rgba(201,168,76,0.2)" stroke-width="0.5"/>
+          <circle cx="130" cy="130" r="55" fill="rgba(201,168,76,0.05)" stroke="rgba(201,168,76,0.4)" stroke-width="1"/>
+          <text x="130" y="124" text-anchor="middle" font-family="'Bebas Neue',sans-serif" font-size="24" fill="rgba(201,168,76,0.8)" letter-spacing="4">SINCE</text>
+          <text x="130" y="148" text-anchor="middle" font-family="'Bebas Neue',sans-serif" font-size="24" fill="var(--gold)" letter-spacing="4">2001</text>
+        </svg>
+      </div>
+      <div class="certif-grid reveal">
+        <div class="certif-item">
+          <strong>BLUESIGN</strong>
+          <span>Certified System</span>
+        </div>
+        <div class="certif-item">
+          <strong>OEKO-TEX</strong>
+          <span>Standard 100</span>
+        </div>
+        <div class="certif-item">
+          <strong>C2C</strong>
+          <span>Cradle to Cradle</span>
+        </div>
+        <div class="certif-item">
+          <strong>ISO</strong>
+          <span>9001 : 2015</span>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- CONTACT -->
+<section id="contact">
+  <p class="s-tag reveal">Commission Veldra</p>
+  <h2 class="reveal stagger-1">LET'S BUILD<br>SOMETHING <span class="gold">RARE</span></h2>
+  <div class="contact-split reveal stagger-2">
+    <div class="contact-left">
+      <div>
+        <h3>GET IN TOUCH WITH THE STUDIO</h3>
+        <p>Whether you're building a capsule collection, sourcing technical performance fabric, or developing an entirely new material — the conversation starts here.</p>
+      </div>
+      <div class="contact-details-list">
+        <div class="cd-item">
+          <strong>Milan Studio</strong>
+          <span>Via Montenapoleone 22, 20121 Milano, Italy</span>
+        </div>
+        <div class="cd-item">
+          <strong>India Manufacturing</strong>
+          <span>Phase IV, GIDC Textile Park, Surat 395 010, Gujarat</span>
+        </div>
+        <div class="cd-item">
+          <strong>Contact</strong>
+          <span>studio@veldratextiles.com</span>
+        </div>
+        <div class="cd-item">
+          <strong>Commissions & Press</strong>
+          <span>+39 02 7634 9100</span>
+        </div>
+      </div>
+    </div>
+    <div class="contact-right">
+      <div class="contact-form">
+        <div class="cf-row">
+          <div class="cf-group">
+            <label>First Name</label>
+            <input type="text" placeholder="Marco">
+          </div>
+          <div class="cf-group">
+            <label>Last Name</label>
+            <input type="text" placeholder="Alteri">
+          </div>
+        </div>
+        <div class="cf-group">
+          <label>Brand / Studio</label>
+          <input type="text" placeholder="Maison Alteri">
+        </div>
+        <div class="cf-group">
+          <label>Email</label>
+          <input type="email" placeholder="marco@maisonalteri.com">
+        </div>
+        <div class="cf-group">
+          <label>Commission Type</label>
+          <select>
+            <option>Custom Fabric Development</option>
+            <option>Bulk Material Sourcing</option>
+            <option>Technical Consultation</option>
+            <option>Swatch / Sample Request</option>
+            <option>Press / Editorial Inquiry</option>
+          </select>
+        </div>
+        <div class="cf-group">
+          <label>Tell us about your project</label>
+          <textarea rows="5" placeholder="Describe your material vision, quantities, timeline, and any technical requirements..."></textarea>
+        </div>
+        <button class="cf-submit" id="cta-submit">Submit Commission →</button>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer>
+  <div class="footer-main">
+    <div>
+      <div class="footer-brand">VEL<span>DRA</span></div>
+      <p class="footer-tagline">Technical luxury textiles engineered at the thread. Trusted by the world's most demanding creative studios since 2001.</p>
+    </div>
+    <div class="footer-col">
+      <h4>Navigate</h4>
+      <ul>
+        <li><a href="#about">The Studio</a></li>
+        <li><a href="#collection">Collection</a></li>
+        <li><a href="#technology">Technology</a></li>
+        <li><a href="#process">Process</a></li>
+        <li><a href="#sustain">Ethics</a></li>
+      </ul>
+    </div>
+    <div class="footer-col">
+      <h4>Materials</h4>
+      <ul>
+        <li><a href="#collection">Noir Aeroflex</a></li>
+        <li><a href="#collection">Ciel Drape</a></li>
+        <li><a href="#collection">Thermolux</a></li>
+        <li><a href="#collection">Onyx Mesh</a></li>
+        <li><a href="#collection">Veldt Boucle</a></li>
+      </ul>
+    </div>
+    <div class="footer-col">
+      <h4>Studios</h4>
+      <ul>
+        <li><a href="#contact">Milan, Italy</a></li>
+        <li><a href="#contact">Tokyo, Japan</a></li>
+        <li><a href="#contact">Surat, India</a></li>
+        <li><a href="#contact">Careers</a></li>
+        <li><a href="#contact">Press Kit</a></li>
+      </ul>
+    </div>
+  </div>
+  <div class="footer-bottom">
+    <p>© 2025 Veldra Textiles S.p.A. All rights reserved.</p>
+    <a href="#hero">Back to top ↑</a>
+  </div>
+</footer>
+
+<script>
+// Custom cursor
+const cursor = document.getElementById('cursor');
+const ring = document.getElementById('cursorRing');
+let mx=0,my=0,rx=0,ry=0;
+document.addEventListener('mousemove',e=>{mx=e.clientX;my=e.clientY;cursor.style.left=mx+'px';cursor.style.top=my+'px';});
+function animRing(){rx+=(mx-rx)*0.1;ry+=(my-ry)*0.1;ring.style.left=rx+'px';ring.style.top=ry+'px';requestAnimationFrame(animRing);}
+animRing();
+document.querySelectorAll('a,button,.coll-card,.tech-item').forEach(el=>{
+  el.addEventListener('mouseenter',()=>{cursor.style.width='14px';cursor.style.height='14px';ring.style.width='50px';ring.style.height='50px';});
+  el.addEventListener('mouseleave',()=>{cursor.style.width='8px';cursor.style.height='8px';ring.style.width='32px';ring.style.height='32px';});
+});
+
+// Nav scroll
+const nav=document.getElementById('main-nav');
+window.addEventListener('scroll',()=>{nav.classList.toggle('scrolled',window.scrollY>60);});
+
+// Scroll reveal
+const io=new IntersectionObserver(entries=>{
+  entries.forEach((e,i)=>{if(e.isIntersecting){setTimeout(()=>e.target.classList.add('in'),i*60);}});
+},{threshold:0.1,rootMargin:'0px 0px -50px 0px'});
+document.querySelectorAll('.reveal,.reveal-left').forEach(el=>io.observe(el));
+
+// Submit
+document.getElementById('cta-submit').addEventListener('click',function(){
+  this.textContent='Commission Received ✓';
+  this.style.background='var(--white)';
+  setTimeout(()=>{this.textContent='Submit Commission →';this.style.background='';},3000);
+});
+</script>
+</body>
+</html>
